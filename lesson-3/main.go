@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // func main() {
 // evenSum := 0
 // oddIndexSum := 0
@@ -60,3 +62,14 @@ package main
 // 	}
 // }
 //}
+
+func main() {
+	// Initialize slice
+	var a []int = []int{1, 2}
+	a = append(a, 1)
+	fmt.Println(a, len(a), cap(a))
+	a = append(a, 2)
+	fmt.Println(a, len(a), cap(a))
+	a = append(a, 2)
+	fmt.Println(a, len(a), cap(a))
+}
