@@ -29,16 +29,16 @@ func increaseLengthByDouble(slc *[]int) {
 
 // Homework-4
 // Apply bubble sort by ASC
-func sortSlice(slc *[]int) {
-	n := len(*slc)
+func sortSlice(slc []int) {
+	n := len(slc)
 	swapped := false
 	for i := 0; i < n; i++ {
 		swapped = false
 		for j := 0; j < n-i-1; j++ {
-			if (*slc)[j] > (*slc)[j+1] {
-				temp := (*slc)[j]
-				(*slc)[j] = (*slc)[j+1]
-				(*slc)[j+1] = temp
+			if (slc)[j] > (slc)[j+1] {
+				temp := (slc)[j]
+				(slc)[j] = (slc)[j+1]
+				(slc)[j+1] = temp
 				swapped = true
 			}
 		}
@@ -75,6 +75,6 @@ func main() {
 	fmt.Println("Homework-4 result:")
 	slc := []int{3, 5, 3, 4, 1, 2}
 	fmt.Printf("Before sorting: %v \n", slc)
-	sortSlice(&slc)
+	sortSlice(slc)
 	fmt.Printf("After sorting: %v \n", slc)
 }
