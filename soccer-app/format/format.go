@@ -13,7 +13,7 @@ func PrintTeams(data []m.Team) {
 }
 
 func print(text string) {
-	width := 50 // Total width of the display
+	width := 60 // Total width of the display
 
 	// Trophy text with padding
 	// trophyText := fmt.Sprintf("🏆 %s 🏆", teamName)
@@ -33,6 +33,17 @@ func PrintWinner(name string) {
 	print(fmt.Sprintf("🏆 %s 🏆", name))
 }
 
+func PrintTopScorer(player m.PlayerScore) {
+	positionsEmoji := map[string]string{
+		"Goalkeeper": "🧤",
+		"Defender":   "🛡️",
+		"Midfielder": "🎯",
+		"Forward":    "⚽",
+	}
+	fmt.Println()
+	print(fmt.Sprintf("%s %s %s %s ⚽️ %d goals", "🧍", player.PlayerName, positionsEmoji[player.Position], player.Position, player.Goals))
+	fmt.Println()
+}
 func WelcomeText(text string) {
 	print(fmt.Sprintf("⚽️ %s ⚽️", text))
 	fmt.Println()

@@ -12,3 +12,11 @@ type Team struct {
 	Country string
 	Players []Player
 }
+
+type PlayerScore struct {
+	PlayerName string
+	Goals      int
+	Position   string
+}
+
+type PlayerStatistics = map[uint]PlayerScore

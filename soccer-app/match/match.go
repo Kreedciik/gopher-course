@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	m "soccer/model"
+	s "soccer/statistics"
 	"time"
 )
 
@@ -30,7 +31,7 @@ func makeScores(players []m.Player, maxScore int) (int, []m.Player) {
 	return randomScoreValue, scoredPlayers
 }
 
-func penaltySeries(team1, team2 m.Team) (int, m.Team) {
+func penaltySeries(team1, team2 m.Team) (int, m.Team, []m.Player) {
 	scores1, scores2 := 0, 0
 	players := []m.Player{}
 
@@ -48,40 +49,42 @@ func penaltySeries(team1, team2 m.Team) (int, m.Team) {
 
 	if scores1 > scores2 {
 		fmt.Printf("Penalty series ⚽️ %s - %s (%d:%d) ⚽️\n", team1.Name, team2.Name, scores1, scores2)
-		return scores1, team1
+		return scores1, team1, players
 	} else if scores1 == scores2 {
 		return penaltySeries(team1, team2)
 	} else {
 		fmt.Printf("Penalty series ⚽️ %s - %s (%d:%d) ⚽️\n", team1.Name, team2.Name, scores1, scores2)
-		return scores2, team2
+		return scores2, team2, players
 	}
 }
 
-func PlayRound(teams []m.Team) []m.Team {
+func PlayRound(teams []m.Team, playerStatistics m.PlayerStatistics) []m.Team {
 	shuffledTeams := shuffleTeams(teams)
 	var winners []m.Team
 
 	for i := 0; i < len(shuffledTeams); i++ {
-		winner := simulateMatch(shuffledTeams[i][0], shuffledTeams[i][1])
+		winner := simulateMatch(shuffledTeams[i][0], shuffledTeams[i][1], playerStatistics)
 		winners = append(winners, winner)
 	}
 
 	return winners
 }
 
-func simulateMatch(team1, team2 m.Team) m.Team {
+func simulateMatch(team1, team2 m.Team, playerStatistics m.PlayerStatistics) m.Team {
 	players1 := team1.Players
 	players2 := team2.Players
 
-	score1, _ := makeScores(players1, 5)
-	score2, _ := makeScores(players2, 5)
-
+	score1, scoredPlayers1 := makeScores(players1, 5)
+	score2, scoredPlayers2 := makeScores(players2, 5)
+	scoredPlayers1 = append(scoredPlayers1, scoredPlayers2...)
+	s.SetStatistics(playerStatistics, scoredPlayers1)
 	fmt.Printf("%s - %s (%d:%d)\n", team1.Name, team2.Name, score1, score2)
 
 	if score1 > score2 {
 		return team1
 	} else if score1 == score2 {
-		_, t := penaltySeries(team1, team2)
+		_, t, scoredPlayers := penaltySeries(team1, team2)
+		s.SetStatistics(playerStatistics, scoredPlayers)
 		return t
 	} else {
 		return team2
