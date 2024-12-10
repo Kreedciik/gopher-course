@@ -1,0 +1,512 @@
+[
+    {
+        "id": "IDKFLRX",
+        "name": "Charlie Smith",
+        "courses": [
+            {
+                "courseId": "CJEZHU",
+                "grade": "E",
+                "professor": "Charlie Smith"
+            },
+            {
+                "courseId": "COFIIJ",
+                "grade": "D",
+                "professor": "Alice Taylor"
+            },
+            {
+                "courseId": "CDZTYU",
+                "grade": "E",
+                "professor": "Henry Davis"
+            },
+            {
+                "courseId": "CIHAET",
+                "grade": "D",
+                "professor": "Henry Taylor"
+            }
+        ],
+        "address": {
+            "street": "382 Elm St",
+            "city": "Springfield",
+            "country": "Germany"
+        }
+    },
+    {
+        "id": "IDTHRAM",
+        "name": "Eve Wilson",
+        "courses": [
+            {
+                "courseId": "CJNQPT",
+                "grade": "E",
+                "professor": "Charlie Garcia"
+            },
+            {
+                "courseId": "CRFXEL",
+                "grade": "F",
+                "professor": "Charlie Jones"
+            },
+            {
+                "courseId": "CZJHNF",
+                "grade": "F",
+                "professor": "Jane Brown"
+            }
+        ],
+        "address": {
+            "street": "489 Oak Ave",
+            "city": "Fairview",
+            "country": "Australia"
+        }
+    },
+    {
+        "id": "IDWAZQE",
+        "name": "Henry Williams",
+        "courses": [
+            {
+                "courseId": "CYRIRU",
+                "grade": "A",
+                "professor": "Grace Williams"
+            },
+            {
+                "courseId": "CZIMFK",
+                "grade": "D",
+                "professor": "Eve Jones"
+            },
+            {
+                "courseId": "CKCAEI",
+                "grade": "B",
+                "professor": "Jane Wilson"
+            }
+        ],
+        "address": {
+            "street": "458 Pine Dr",
+            "city": "Springfield",
+            "country": "Canada"
+        }
+    },
+    {
+        "id": "IDVSMRY",
+        "name": "Jane Wilson",
+        "courses": [
+            {
+                "courseId": "CNNCOS",
+                "grade": "A",
+                "professor": "Diana Jones"
+            },
+            {
+                "courseId": "CICAKX",
+                "grade": "E",
+                "professor": "Diana Miller"
+            }
+        ],
+        "address": {
+            "street": "843 Pine Dr",
+            "city": "Springfield",
+            "country": "UK"
+        }
+    },
+    {
+        "id": "IDUJDXU",
+        "name": "Bob Taylor",
+        "courses": [
+            {
+                "courseId": "CXJVCH",
+                "grade": "F",
+                "professor": "Alice Garcia"
+            },
+            {
+                "courseId": "CUJQWB",
+                "grade": "D",
+                "professor": "Diana Jones"
+            },
+            {
+                "courseId": "CHEHBJ",
+                "grade": "C",
+                "professor": "John Miller"
+            },
+            {
+                "courseId": "CSHCWL",
+                "grade": "D",
+                "professor": "John Taylor"
+            }
+        ],
+        "address": {
+            "street": "250 Oak Ave",
+            "city": "Greenville",
+            "country": "UK"
+        }
+    },
+    {
+        "id": "IDWKEVY",
+        "name": "Alice Garcia",
+        "courses": [
+            {
+                "courseId": "CHMKLS",
+                "grade": "A",
+                "professor": "Grace Davis"
+            },
+            {
+                "courseId": "CRUFYO",
+                "grade": "A",
+                "professor": "Charlie Williams"
+            },
+            {
+                "courseId": "CILTGC",
+                "grade": "C",
+                "professor": "Alice Williams"
+            },
+            {
+                "courseId": "CKUCCG",
+                "grade": "F",
+                "professor": "Grace Brown"
+            },
+            {
+                "courseId": "CMQDNQ",
+                "grade": "A",
+                "professor": "Eve Jones"
+            }
+        ],
+        "address": {
+            "street": "191 Oak Ave",
+            "city": "Franklin",
+            "country": "Canada"
+        }
+    },
+    {
+        "id": "IDJFCEE",
+        "name": "Bob Johnson",
+        "courses": [
+            {
+                "courseId": "CPVLIV",
+                "grade": "E",
+                "professor": "Grace Miller"
+            },
+            {
+                "courseId": "CKDHMR",
+                "grade": "B",
+                "professor": "Bob Wilson"
+            }
+        ],
+        "address": {
+            "street": "437 Maple Rd",
+            "city": "Springfield",
+            "country": "UK"
+        }
+    },
+    {
+        "id": "IDRKOTY",
+        "name": "Frank Wilson",
+        "courses": [
+            {
+                "courseId": "CAGGSA",
+                "grade": "F",
+                "professor": "Jane Jones"
+            }
+        ],
+        "address": {
+            "street": "999 Main St",
+            "city": "Springfield",
+            "country": "USA"
+        }
+    },
+    {
+        "id": "IDHLTHU",
+        "name": "Bob Smith",
+        "courses": [
+            {
+                "courseId": "CLBRDT",
+                "grade": "E",
+                "professor": "Diana Brown"
+            },
+            {
+                "courseId": "CWLXBA",
+                "grade": "C",
+                "professor": "Diana Johnson"
+            },
+            {
+                "courseId": "CUJQWB",
+                "grade": "A",
+                "professor": "Alice Johnson"
+            }
+        ],
+        "address": {
+            "street": "360 Main St",
+            "city": "Fairview",
+            "country": "UK"
+        }
+    },
+    {
+        "id": "IDRVSDQ",
+        "name": "Frank Miller",
+        "courses": [
+            {
+                "courseId": "CQUXUI",
+                "grade": "F",
+                "professor": "John Brown"
+            },
+            {
+                "courseId": "CUINXN",
+                "grade": "D",
+                "professor": "John Jones"
+            }
+        ],
+        "address": {
+            "street": "73 Oak Ave",
+            "city": "Fairview",
+            "country": "Germany"
+        }
+    },
+    {
+        "id": "IDNQQGK",
+        "name": "Diana Taylor",
+        "courses": [
+            {
+                "courseId": "CPMKOE",
+                "grade": "B",
+                "professor": "Diana Smith"
+            },
+            {
+                "courseId": "CXXECC",
+                "grade": "E",
+                "professor": "John Garcia"
+            },
+            {
+                "courseId": "CILYZJ",
+                "grade": "E",
+                "professor": "Jane Wilson"
+            },
+            {
+                "courseId": "CYJMHW",
+                "grade": "F",
+                "professor": "Bob Johnson"
+            },
+            {
+                "courseId": "CUCBQX",
+                "grade": "D",
+                "professor": "Grace Garcia"
+            }
+        ],
+        "address": {
+            "street": "875 Elm St",
+            "city": "Greenville",
+            "country": "UK"
+        }
+    },
+    {
+        "id": "IDBBMKG",
+        "name": "Jane Jones",
+        "courses": [
+            {
+                "courseId": "CXICDT",
+                "grade": "E",
+                "professor": "Charlie Johnson"
+            },
+            {
+                "courseId": "CFJBNZ",
+                "grade": "B",
+                "professor": "Alice Jones"
+            }
+        ],
+        "address": {
+            "street": "808 Oak Ave",
+            "city": "Fairview",
+            "country": "UK"
+        }
+    },
+    {
+        "id": "IDUZJVI",
+        "name": "Frank Garcia",
+        "courses": [
+            {
+                "courseId": "CYMFLC",
+                "grade": "E",
+                "professor": "John Williams"
+            },
+            {
+                "courseId": "CKWTGO",
+                "grade": "C",
+                "professor": "Frank Wilson"
+            },
+            {
+                "courseId": "CECXJE",
+                "grade": "D",
+                "professor": "John Garcia"
+            }
+        ],
+        "address": {
+            "street": "399 Main St",
+            "city": "Fairview",
+            "country": "USA"
+        }
+    },
+    {
+        "id": "IDWHDNO",
+        "name": "Jane Williams",
+        "courses": [
+            {
+                "courseId": "CJUKET",
+                "grade": "C",
+                "professor": "Jane Taylor"
+            },
+            {
+                "courseId": "CUURHV",
+                "grade": "B",
+                "professor": "Henry Miller"
+            },
+            {
+                "courseId": "CXMERU",
+                "grade": "D",
+                "professor": "Charlie Smith"
+            },
+            {
+                "courseId": "CGHKVG",
+                "grade": "C",
+                "professor": "Jane Wilson"
+            },
+            {
+                "courseId": "CJBDQB",
+                "grade": "D",
+                "professor": "Frank Smith"
+            }
+        ],
+        "address": {
+            "street": "901 Elm St",
+            "city": "Springfield",
+            "country": "Australia"
+        }
+    },
+    {
+        "id": "IDVESZF",
+        "name": "Diana Wilson",
+        "courses": [
+            {
+                "courseId": "CLTOEB",
+                "grade": "A",
+                "professor": "Frank Taylor"
+            },
+            {
+                "courseId": "CJDMSI",
+                "grade": "E",
+                "professor": "Alice Williams"
+            },
+            {
+                "courseId": "CXKVMR",
+                "grade": "F",
+                "professor": "Eve Garcia"
+            },
+            {
+                "courseId": "CJRIDE",
+                "grade": "B",
+                "professor": "Eve Jones"
+            },
+            {
+                "courseId": "CALCHI",
+                "grade": "B",
+                "professor": "Grace Miller"
+            }
+        ],
+        "address": {
+            "street": "652 Elm St",
+            "city": "Greenville",
+            "country": "Australia"
+        }
+    },
+    {
+        "id": "IDKDZKZ",
+        "name": "Charlie Brown",
+        "courses": [
+            {
+                "courseId": "CUZGLT",
+                "grade": "F",
+                "professor": "Charlie Wilson"
+            }
+        ],
+        "address": {
+            "street": "28 Maple Rd",
+            "city": "Springfield",
+            "country": "Australia"
+        }
+    },
+    {
+        "id": "IDMUMFQ",
+        "name": "Alice Williams",
+        "courses": [
+            {
+                "courseId": "CYHAEH",
+                "grade": "B",
+                "professor": "Charlie Wilson"
+            },
+            {
+                "courseId": "CNVLCH",
+                "grade": "E",
+                "professor": "Henry Garcia"
+            }
+        ],
+        "address": {
+            "street": "457 Oak Ave",
+            "city": "Riverside",
+            "country": "USA"
+        }
+    },
+    {
+        "id": "IDDKYTU",
+        "name": "Jane Miller",
+        "courses": [
+            {
+                "courseId": "CEPIKT",
+                "grade": "C",
+                "professor": "Charlie Garcia"
+            },
+            {
+                "courseId": "CNBGTM",
+                "grade": "B",
+                "professor": "John Williams"
+            }
+        ],
+        "address": {
+            "street": "178 Elm St",
+            "city": "Fairview",
+            "country": "Canada"
+        }
+    },
+    {
+        "id": "IDDEDHA",
+        "name": "Eve Garcia",
+        "courses": [
+            {
+                "courseId": "CLNDIQ",
+                "grade": "A",
+                "professor": "Grace Smith"
+            },
+            {
+                "courseId": "CUNTFU",
+                "grade": "F",
+                "professor": "Jane Davis"
+            },
+            {
+                "courseId": "CDWENL",
+                "grade": "B",
+                "professor": "Henry Williams"
+            }
+        ],
+        "address": {
+            "street": "504 Pine Dr",
+            "city": "Riverside",
+            "country": "Germany"
+        }
+    },
+    {
+        "id": "IDSHLPW",
+        "name": "Bob Taylor",
+        "courses": [
+            {
+                "courseId": "CDJCMI",
+                "grade": "A",
+                "professor": "John Williams"
+            }
+        ],
+        "address": {
+            "street": "780 Oak Ave",
+            "city": "Riverside",
+            "country": "UK"
+        }
+    }
+]
