@@ -1,0 +1,86 @@
+package data
+
+import "hw18/model"
+
+var Books = []model.Book{
+	{
+		Id:        1,
+		Title:     "To Kill a Mockingbird",
+		Author:    "Harper Lee",
+		Publisher: "J.B. Lippincott & Co",
+		Isbn:      "9780061120084",
+		Category:  "Fiction",
+	},
+	{
+		Id:        2,
+		Title:     "1984",
+		Author:    "George Orwell",
+		Publisher: "Secker & Warburg",
+		Isbn:      "9780451524935",
+		Category:  "Dystopian",
+	},
+	{
+		Id:        3,
+		Title:     "Pride and Prejudice",
+		Author:    "Jane Austen",
+		Publisher: "T. Egerton, Whitehall",
+		Isbn:      "9780141040349",
+		Category:  "Romance",
+	},
+	{
+		Id:        4,
+		Title:     "The Great Gatsby",
+		Author:    "F. Scott Fitzgerald",
+		Publisher: "Charles Scribner's Sons",
+		Isbn:      "9780743273565",
+		Category:  "Fiction",
+	},
+	{
+		Id:        5,
+		Title:     "The Catcher in the Rye",
+		Author:    "J.D. Salinger",
+		Publisher: "Little, Brown and Company",
+		Isbn:      "9780316769488",
+		Category:  "Fiction",
+	},
+	{
+		Id:        6,
+		Title:     "Sapiens: A Brief History of Humankind",
+		Author:    "Yuval Noah Harari",
+		Publisher: "Harper",
+		Isbn:      "9780062316097",
+		Category:  "Non-Fiction",
+	},
+	{
+		Id:        7,
+		Title:     "Harry Potter and the Philosopher's Stone",
+		Author:    "J.K. Rowling",
+		Publisher: "Bloomsbury",
+		Isbn:      "9780747532699",
+		Category:  "Fantasy",
+	},
+	{
+		Id:        8,
+		Title:     "The Hobbit",
+		Author:    "J.R.R. Tolkien",
+		Publisher: "George Allen & Unwin",
+		Isbn:      "9780547928227",
+		Category:  "Fantasy",
+	},
+	{
+		Id:        9,
+		Title:     "A Brief History of Time",
+		Author:    "Stephen Hawking",
+		Publisher: "Bantam Books",
+		Isbn:      "9780553380163",
+		Category:  "Science",
+	},
+	{
+		Id:        10,
+		Title:     "The Alchemist",
+		Author:    "Paulo Coelho",
+		Publisher: "HarperOne",
+		Isbn:      "9780061122415",
+		Category:  "Fiction",
+	},
+}
