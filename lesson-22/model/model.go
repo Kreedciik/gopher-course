@@ -43,3 +43,12 @@ type Enroll struct {
 	CourseID  string
 	StudentID string
 }
+
+type CreateStudentRequest struct {
+	Name     string `json:"name"`
+	LastName string `json:"lastName"`
+	Phone    string `json:"phone"`
+	Age      int    `json:"age"`
+	Grade    int    `json:"grade"`
+	Gender   string `json:"gender"`
+}

@@ -80,8 +80,15 @@ func (c *CourseRepository) UpdateCourse(course model.Course) error {
 }
 
 func (c *CourseRepository) DeleteCourse(id string) error {
-	_, err := c.db.Exec(`DELETE FROM courses WHERE course_id = $1`, id)
-	return err
+	r, err := c.db.Exec(`DELETE FROM courses WHERE course_id = $1`, id)
+	if err != nil {
+		return err
+	}
+	n, err := r.RowsAffected()
+	if n == 0 || err != nil {
+		return fmt.Errorf("not listed")
+	}
+	return nil
 }
 
 func (c *CourseRepository) GetBiggestCourse() (model.Course, error) {

@@ -6,18 +6,26 @@ import (
 )
 
 type Handler struct {
-	courseRepo *repository.CourseRepository
+	courseRepo  *repository.CourseRepository
+	studentRepo *repository.StudentRepository
 }
 
-func NewHandler(courseRepo *repository.CourseRepository) *Handler {
+func NewHandler(courseRepo *repository.CourseRepository, studentRepo *repository.StudentRepository) *Handler {
 	return &Handler{
-		courseRepo: courseRepo,
+		courseRepo:  courseRepo,
+		studentRepo: studentRepo,
 	}
 }
 
 func Run(handler *Handler) *http.Server {
 
 	mux := http.NewServeMux()
+
+	mux.HandleFunc("POST /student", handler.CreateStudent)
+	mux.HandleFunc("GET /student/{id}", handler.GetStudent)
+	mux.HandleFunc("PUT /student/{id}", handler.UpdateStudent)
+	mux.HandleFunc("PUT /student/{id}", handler.DeleteStudent)
+
 	mux.HandleFunc("POST /course", handler.CreateCourse)
 	mux.HandleFunc("GET /course/{id}", handler.GetCourse)
 	mux.HandleFunc("PUT /course", handler.UpdateCourse)

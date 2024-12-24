@@ -15,7 +15,8 @@ func main() {
 	defer pgDB.Close()
 
 	courseRepo := repository.CreateCourseRepository(pgDB)
-	h := handler.NewHandler(&courseRepo)
+	studentRepo := repository.CreateStudentRepository(pgDB)
+	h := handler.NewHandler(&courseRepo, &studentRepo)
 
 	mux := handler.Run(h)
 	err = mux.ListenAndServe()
