@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"lesson22/model"
+	"time"
 
 	"github.com/savsgio/gotils/uuid"
 )
@@ -62,12 +63,13 @@ func (s *StudentRepository) GetAllStudents() ([]model.Student, error) {
 }
 
 func (s *StudentRepository) UpdateStudent(student model.Student) error {
+	student.UpdatedAt = time.Now()
 	_, err := s.db.Exec(`UPDATE students SET
 		name = $1, lastname = $2, 
 		phone = $3, age = $4, 
-		grade = $5, gender = $6
+		grade = $5, gender = $6,
 		updated_at = $7
-		WHERE student_id = $8
+		WHERE student_id = $8;
 	`, student.Name, student.LastName,
 		student.Phone, student.Age,
 		student.Grade, student.Gender,
