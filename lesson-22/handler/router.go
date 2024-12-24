@@ -24,7 +24,7 @@ func Run(handler *Handler) *http.Server {
 	mux.HandleFunc("POST /student", handler.CreateStudent)
 	mux.HandleFunc("GET /student/{id}", handler.GetStudent)
 	mux.HandleFunc("PUT /student/{id}", handler.UpdateStudent)
-	mux.HandleFunc("PUT /student/{id}", handler.DeleteStudent)
+	mux.HandleFunc("DELETE /student/{id}", handler.DeleteStudent)
 
 	mux.HandleFunc("POST /course", handler.CreateCourse)
 	mux.HandleFunc("GET /course/{id}", handler.GetCourse)
