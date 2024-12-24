@@ -17,7 +17,7 @@ func CreateStudentRepository(db *sql.DB) StudentRepository {
 func (s *StudentRepository) CreateStudent(student model.CreateStudentRequest) error {
 	_, err := s.db.Exec(`INSERT INTO students VALUES (
 	name, lastname, phone, age, grade, gender 
-	)`,
+	), $1, $2, $3, $4, $5, $6`,
 		student.Name, student.LastName,
 		student.Phone, student.Age,
 		student.Grade, student.Gender,

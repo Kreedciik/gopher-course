@@ -35,7 +35,7 @@ func (h *Handler) GetCourse(w http.ResponseWriter, r *http.Request) {
 	course, err := h.courseRepo.GetCourse(id)
 
 	if err != nil {
-		if err.Error() == "no rows in result set" {
+		if err.Error() == "sql: no rows in result set" {
 			http.Error(w, err.Error(), http.StatusNotFound)
 		} else {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

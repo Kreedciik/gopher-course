@@ -34,7 +34,7 @@ func (h *Handler) GetStudent(w http.ResponseWriter, r *http.Request) {
 	student, err := h.studentRepo.GetStudent(id)
 
 	if err != nil {
-		if err.Error() == "no rows in result set" {
+		if err.Error() == "sql: no rows in result set" {
 			http.Error(w, err.Error(), http.StatusNotFound)
 		} else {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
