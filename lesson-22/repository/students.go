@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"lesson22/model"
+
+	"github.com/savsgio/gotils/uuid"
 )
 
 type StudentRepository struct {
@@ -16,8 +18,9 @@ func CreateStudentRepository(db *sql.DB) StudentRepository {
 
 func (s *StudentRepository) CreateStudent(student model.CreateStudentRequest) error {
 	_, err := s.db.Exec(`INSERT INTO students VALUES (
-	$1, $2, $3, $4, $5, $6 
+	$1, $2, $3, $4, $5, $6, $7
 	)`,
+		uuid.V4(),
 		student.Name, student.LastName,
 		student.Phone, student.Age,
 		student.Grade, student.Gender,
