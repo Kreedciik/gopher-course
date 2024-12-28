@@ -1,10 +1,9 @@
 package main
 
 import (
-	"lesson22/handler"
+	ginhandler "lesson22/gin-handler"
 	"lesson22/postgres"
 	"lesson22/repository"
-	"log"
 )
 
 func main() {
@@ -14,17 +13,22 @@ func main() {
 	}
 	defer pgDB.Close()
 
-	courseRepo := repository.CreateCourseRepository(pgDB)
+	// courseRepo := repository.CreateCourseRepository(pgDB)
+	// studentRepo := repository.CreateStudentRepository(pgDB)
+	// tutorRepo := repository.CreateTutorRepository(pgDB)
+	// groupRepo := repository.CreateGroupRepository(pgDB)
+
+	// h := handler.NewHandler(&courseRepo, &studentRepo,
+	// 	&tutorRepo, &groupRepo)
+
+	// mux := handler.Run(h)
+	// err = mux.ListenAndServe()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
 	studentRepo := repository.CreateStudentRepository(pgDB)
-	tutorRepo := repository.CreateTutorRepository(pgDB)
-	groupRepo := repository.CreateGroupRepository(pgDB)
-
-	h := handler.NewHandler(&courseRepo, &studentRepo,
-		&tutorRepo, &groupRepo)
-
-	mux := handler.Run(h)
-	err = mux.ListenAndServe()
-	if err != nil {
-		log.Fatal(err)
-	}
+	ginRouter := ginhandler.NewGinHandler(&studentRepo)
+	s := ginhandler.RunWithGin(ginRouter)
+	s.ListenAndServe()
 }
