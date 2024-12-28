@@ -16,7 +16,11 @@ func main() {
 
 	courseRepo := repository.CreateCourseRepository(pgDB)
 	studentRepo := repository.CreateStudentRepository(pgDB)
-	h := handler.NewHandler(&courseRepo, &studentRepo)
+	tutorRepo := repository.CreateTutorRepository(pgDB)
+	groupRepo := repository.CreateGroupRepository(pgDB)
+
+	h := handler.NewHandler(&courseRepo, &studentRepo,
+		&tutorRepo, &groupRepo)
 
 	mux := handler.Run(h)
 	err = mux.ListenAndServe()

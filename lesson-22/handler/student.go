@@ -86,3 +86,21 @@ func (h *Handler) DeleteStudent(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "successfully deleted")
 }
+
+func (h *Handler) GetAllStudents(w http.ResponseWriter, r *http.Request) {
+	students, err := h.studentRepo.GetAllStudents()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	studentResponse := model.StudentResponse{Data: students}
+	studentsByte, err := json.Marshal(studentResponse)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+	w.Header().Add("Content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(studentsByte)
+}

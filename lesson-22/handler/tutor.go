@@ -8,20 +8,20 @@ import (
 	"net/http"
 )
 
-func (h *Handler) CreateCourse(w http.ResponseWriter, r *http.Request) {
-	var course model.Course
+func (h *Handler) CreateTutor(w http.ResponseWriter, r *http.Request) {
+	var tutor model.Tutor
 	b, err := io.ReadAll(r.Body)
 	defer func() { r.Body.Close() }()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	err = json.Unmarshal(b, &course)
+	err = json.Unmarshal(b, &tutor)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = h.courseRepo.CreateCourse(course)
+	err = h.tutorRepo.CreateTutor(tutor)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -30,9 +30,9 @@ func (h *Handler) CreateCourse(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "successfully created")
 }
 
-func (h *Handler) GetCourse(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetTutor(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	course, err := h.courseRepo.GetCourse(id)
+	tutor, err := h.tutorRepo.GetTutor(id)
 
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {
@@ -45,7 +45,7 @@ func (h *Handler) GetCourse(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	err = json.NewEncoder(w).Encode(course)
+	err = json.NewEncoder(w).Encode(tutor)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -53,20 +53,38 @@ func (h *Handler) GetCourse(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (h *Handler) UpdateCourse(w http.ResponseWriter, r *http.Request) {
-	var course model.Course
+func (h *Handler) GetAllTutors(w http.ResponseWriter, r *http.Request) {
+	tutors, err := h.tutorRepo.GetAllTutors()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	tutorResponse := model.TutorResponse{Data: tutors}
+	tutorsByte, err := json.Marshal(tutorResponse)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+	w.Header().Add("Content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(tutorsByte)
+}
+
+func (h *Handler) UpdateTutor(w http.ResponseWriter, r *http.Request) {
+	var tutor model.Tutor
 	b, err := io.ReadAll(r.Body)
 	defer func() { r.Body.Close() }()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	err = json.Unmarshal(b, &course)
+	err = json.Unmarshal(b, &tutor)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = h.courseRepo.UpdateCourse(course)
+	err = h.tutorRepo.UpdateTutor(tutor)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -75,9 +93,9 @@ func (h *Handler) UpdateCourse(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "successfully updated")
 }
 
-func (h *Handler) DeleteCourse(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) DeleteTutor(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	err := h.courseRepo.DeleteCourse(id)
+	err := h.tutorRepo.DeleteTutor(id)
 
 	if err != nil {
 		if err.Error() == "not listed" {
@@ -89,22 +107,4 @@ func (h *Handler) DeleteCourse(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "successfully deleted")
-}
-
-func (h *Handler) GetAllCourses(w http.ResponseWriter, r *http.Request) {
-	courses, err := h.courseRepo.GetCourses()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
-		return
-	}
-
-	courseResponse := model.CourseResponse{Data: courses}
-	coursesByte, err := json.Marshal(courseResponse)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
-		return
-	}
-	w.Header().Add("Content-type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(coursesByte)
 }

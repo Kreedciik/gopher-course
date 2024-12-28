@@ -3,31 +3,33 @@ package repository
 import (
 	"database/sql"
 	"lesson22/model"
+
+	"github.com/google/uuid"
 )
 
-type groupRepository struct {
+type GroupRepository struct {
 	db *sql.DB
 }
 
-func CreateGroupRepository(db *sql.DB) groupRepository {
-	return groupRepository{db}
+func CreateGroupRepository(db *sql.DB) GroupRepository {
+	return GroupRepository{db}
 }
 
-func (g *groupRepository) CreateGroup(group model.StudentGroup) error {
-	_, err := g.db.Exec(`INSERT INTO student_group (group_id, name, course_id, 
+func (g *GroupRepository) CreateGroup(group model.StudentGroup) error {
+	_, err := g.db.Exec(`INSERT INTO groups (group_id, name, course_id, 
 		student_count) VALUES (
 			$1, $2, $3, $4
 		)`,
-		group.Id, group.Name,
+		uuid.New(), group.Name,
 		group.CourseId, group.StudentCount,
 	)
 	return err
 }
 
-func (g *groupRepository) GetGroup(id string) (model.StudentGroup, error) {
+func (g *GroupRepository) GetGroup(id string) (model.StudentGroup, error) {
 	var group model.StudentGroup
 	row := g.db.QueryRow(`SELECT group_id, name, course_id, 
-		student_count
+		groups
 		FROM student_group
 		WHERE group_id = $1
 	`, id)
@@ -40,13 +42,13 @@ func (g *groupRepository) GetGroup(id string) (model.StudentGroup, error) {
 	return group, err
 }
 
-func (g *groupRepository) GetAllGroups() ([]model.StudentGroup, error) {
+func (g *GroupRepository) GetAllGroups() ([]model.StudentGroup, error) {
 	var groups []model.StudentGroup
 
 	rows, err := g.db.Query(
 		`SELECT group_id, name, course_id, 
 		student_count
-		FROM student_group`)
+		FROM groups`)
 
 	for rows.Next() {
 		var group model.StudentGroup
@@ -59,8 +61,8 @@ func (g *groupRepository) GetAllGroups() ([]model.StudentGroup, error) {
 	return groups, err
 }
 
-func (g *groupRepository) UpdateGroup(group model.StudentGroup) error {
-	_, err := g.db.Exec(`UPDATE student_group SET
+func (g *GroupRepository) UpdateGroup(group model.StudentGroup) error {
+	_, err := g.db.Exec(`UPDATE groups SET
 	name = $1, course_id = $2, 
 	student_count = $3, updated_at = $4, 
 	WHERE group_id = $5
@@ -71,16 +73,16 @@ func (g *groupRepository) UpdateGroup(group model.StudentGroup) error {
 	return err
 }
 
-func (g *groupRepository) DeleteGroup(id string) error {
-	_, err := g.db.Exec(`DELETE FROM student_group WHERE group_id = $1`, id)
+func (g *GroupRepository) DeleteGroup(id string) error {
+	_, err := g.db.Exec(`DELETE FROM groups WHERE group_id = $1`, id)
 	return err
 }
 
-func (g *groupRepository) GetBiggestGroup() (model.StudentGroup, error) {
+func (g *GroupRepository) GetBiggestGroup() (model.StudentGroup, error) {
 	var group model.StudentGroup
 	row := g.db.QueryRow(`SELECT group_id, name, course_id, 
 		student_count
-		FROM student_group
+		FROM groups
 		ORDER BY student_count
 		LIMIT 1
 	`)
