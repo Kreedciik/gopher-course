@@ -3,7 +3,6 @@ package handler
 import (
 	"blogpost/models"
 	"blogpost/pkg/responses"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,8 +12,6 @@ func (h *Handler) likePost(ctx *gin.Context) {
 	var likeDto models.LikeDTO
 	value, _ := ctx.Get("userId")
 	userId := value.(string)
-
-	fmt.Println("ID: ", userId)
 	if err := ctx.ShouldBindJSON(&likeDto); err != nil {
 		responses.NewErrorResponse(ctx, http.StatusBadRequest, err.Error())
 		return

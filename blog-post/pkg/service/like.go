@@ -2,7 +2,6 @@ package service
 
 import (
 	"blogpost/pkg/repository"
-	"fmt"
 )
 
 type Like interface {
@@ -20,6 +19,5 @@ func NewLikeService(repository *repository.LikeRepository) *LikeService {
 }
 
 func (l *LikeService) ReactToPost(postId, userId string) error {
-	fmt.Println(postId, userId)
 	return l.repository.ToggleLike(postId, userId)
 }
