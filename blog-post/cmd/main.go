@@ -4,6 +4,7 @@ import (
 	"blogpost"
 	"blogpost/pkg/handler"
 	"blogpost/pkg/repository"
+	"blogpost/pkg/repository/cache"
 	"blogpost/pkg/repository/postgres"
 	"blogpost/pkg/service"
 	"os"
@@ -27,12 +28,16 @@ func main() {
 		SSLMode:  os.Getenv("PG_SSL_MODE"),
 	})
 
+	rdb := cache.NewRedisCache(cache.RedisConfig{
+		Address: os.Getenv("REDIS_ADDRESS"),
+	})
+
 	if err != nil {
 		panic(err)
 	}
 
 	repository := repository.NewRepository(pgDB)
-	services := service.NewServices(repository)
+	services := service.NewServices(repository, rdb)
 	handler := handler.NewHandler(services)
 	server := new(blogpost.Server)
 	err = server.Run(":8000", handler.InitRoutes())

@@ -26,7 +26,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		auth.POST("/sign-in", h.signIn)
 	}
 
-	v1 := router.Group("/api/v1", middleware.AuthMiddleware)
+	v1 := router.Group("/api/v1", middleware.AuthMiddleware, h.RateLimiter)
 	{
 		user := v1.Group("/user")
 		{
