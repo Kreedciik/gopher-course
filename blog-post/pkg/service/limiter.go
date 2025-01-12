@@ -23,7 +23,7 @@ func NewLimiterService(rdb *redis.Client) *LimiterService {
 }
 
 func (l *LimiterService) CheckRequest(userId string, ctx *gin.Context) error {
-
+	const requestLimit = 10
 	set, err := l.rdb.SetNX(ctx, userId, 1, time.Minute).Result()
 
 	if err != nil {
@@ -35,7 +35,7 @@ func (l *LimiterService) CheckRequest(userId string, ctx *gin.Context) error {
 		if err != nil {
 			return err
 		}
-		if count > 10 {
+		if count > requestLimit {
 			ttl, _ := l.rdb.TTL(ctx, userId).Result()
 			return fmt.Errorf("your request is limited, please make request after %d seconds", ttl)
 		}
