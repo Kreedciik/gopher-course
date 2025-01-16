@@ -2,14 +2,18 @@ package repository
 
 import (
 	"blogpost/models"
+	"context"
 	"database/sql"
 	"fmt"
 
 	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
 type User interface {
 	InsertUser(models.UserCreateDTO) error
+	InsertOneUser(models.UserCreateDTO) error
+	InsertManyUser([]models.UserCreateDTO) error
 	FindUserByEmail(string) (models.User, error)
 	FindUserById(string) (models.User, error)
 	UpdateUser(models.UpdateUserDTO) error
@@ -17,12 +21,14 @@ type User interface {
 }
 
 type UserRepository struct {
-	db *sql.DB
+	db             *sql.DB
+	userCollection *mongo.Collection
 }
 
-func NewUserRepository(db *sql.DB) *UserRepository {
+func NewUserRepository(db *sql.DB, userCollection *mongo.Collection) *UserRepository {
 	return &UserRepository{
 		db,
+		userCollection,
 	}
 }
 
@@ -30,6 +36,16 @@ var (
 	usersTable     = "users"
 	followersTable = "followers"
 )
+
+func (u *UserRepository) InsertOneUser(newUser models.UserCreateDTO) error {
+	_, err := u.userCollection.InsertOne(context.TODO(), newUser)
+	return err
+}
+
+func (u *UserRepository) InsertManyUser(users []models.UserCreateDTO) error {
+	_, err := u.userCollection.InsertMany(context.TODO(), users)
+	return err
+}
 
 func (u *UserRepository) InsertUser(newUser models.UserCreateDTO) error {
 

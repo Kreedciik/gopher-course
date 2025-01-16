@@ -5,6 +5,7 @@ import (
 	"blogpost/pkg/handler"
 	"blogpost/pkg/repository"
 	"blogpost/pkg/repository/cache"
+	"blogpost/pkg/repository/mongodb"
 	"blogpost/pkg/repository/postgres"
 	"blogpost/pkg/service"
 	"os"
@@ -17,6 +18,11 @@ func main() {
 	err := godotenv.Load()
 	if err != nil {
 		panic(err)
+	}
+
+	mongoUri := os.Getenv("MONGO_URI")
+	if mongoUri == "" {
+		panic("You must set your 'MONGODB_URI' environment variable")
 	}
 
 	pgDB, err := postgres.NewPostgres(postgres.Config{
@@ -32,11 +38,13 @@ func main() {
 		Address: os.Getenv("REDIS_ADDRESS"),
 	})
 
+	mongoClient := mongodb.NewMongoDB(mongoUri)
+
 	if err != nil {
 		panic(err)
 	}
 
-	repository := repository.NewRepository(pgDB)
+	repository := repository.NewRepository(pgDB, mongoClient.Database("some_database"))
 	services := service.NewServices(repository, rdb)
 	handler := handler.NewHandler(services)
 	server := new(blogpost.Server)
