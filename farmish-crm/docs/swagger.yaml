@@ -1,0 +1,662 @@
+definitions:
+  model.CreateAnimalDTO:
+    properties:
+      birthdate:
+        type: string
+      breed:
+        type: string
+      farm:
+        type: string
+      gender:
+        type: string
+      name:
+        type: string
+      species:
+        type: string
+      weight:
+        type: number
+    required:
+    - birthdate
+    - breed
+    - farm
+    - gender
+    - name
+    - species
+    - weight
+    type: object
+  model.CreateFarmDTO:
+    properties:
+      lat:
+        type: number
+      lng:
+        type: number
+      name:
+        type: string
+    type: object
+  model.CreateFeedingDTO:
+    properties:
+      animal:
+        type: string
+      feedingTime:
+        type: string
+      notes:
+        type: string
+      quantity:
+        type: number
+      type:
+        type: string
+    required:
+    - animal
+    - feedingTime
+    - quantity
+    - type
+    type: object
+  model.CreateStockDTO:
+    properties:
+      cost:
+        type: number
+      name:
+        type: string
+      quantity:
+        type: number
+      stockType:
+        type: string
+    required:
+    - name
+    - stockType
+    type: object
+  model.CreateTreatmentDTO:
+    properties:
+      animal:
+        type: string
+      medicine:
+        type: string
+      quantity:
+        type: number
+      treatmentDate:
+        type: string
+    required:
+    - animal
+    - medicine
+    - quantity
+    - treatmentDate
+    type: object
+  model.CreateUserDTO:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  model.HTTPDataSuccess:
+    properties:
+      data: {}
+    type: object
+  model.HTTPError:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  model.HTTPSuccess:
+    properties:
+      message:
+        type: string
+    type: object
+  model.SignInDTO:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  model.SupplyStockDTO:
+    properties:
+      arrivalDate:
+        type: string
+      notes:
+        type: string
+      quantity:
+        type: number
+      type:
+        type: string
+    required:
+    - arrivalDate
+    - quantity
+    - type
+    type: object
+  model.Token:
+    properties:
+      accessToken:
+        type: string
+    type: object
+  model.UpdateAnimalDTO:
+    properties:
+      birthdate:
+        type: string
+      breed:
+        type: string
+      farm:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      isHealthy:
+        type: boolean
+      isHungry:
+        type: boolean
+      name:
+        type: string
+      species:
+        type: string
+      weight:
+        type: number
+    type: object
+  model.UpdateFarmDTO:
+    properties:
+      id:
+        type: string
+      lat:
+        type: number
+      lng:
+        type: number
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a sample server celler server.
+  title: Farmish API
+  version: "1.0"
+paths:
+  /api/v1/animal/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get animal by ID
+      operationId: animal-get
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPDataSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Get animal
+      tags:
+      - Animal
+  /api/v1/animal/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new animal
+      operationId: animal-create
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateAnimalDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: New animal
+      tags:
+      - Animal
+  /api/v1/animal/feed:
+    post:
+      consumes:
+      - application/json
+      description: Feeding of animal
+      operationId: feeding-create
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateFeedingDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: New feeding
+      tags:
+      - Animal
+  /api/v1/animal/healthy:
+    post:
+      consumes:
+      - application/json
+      description: Change state of hunger
+      operationId: animal-hungry
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Toggle animal state
+      tags:
+      - Animal
+  /api/v1/animal/treat:
+    post:
+      consumes:
+      - application/json
+      description: Treatment of animal
+      operationId: treatment-create
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateTreatmentDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: New treatment
+      tags:
+      - Animal
+  /api/v1/animal/update:
+    put:
+      consumes:
+      - application/json
+      description: Delete animal
+      operationId: animal-delete
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Delete animal
+      tags:
+      - Animal
+  /api/v1/dashboard:
+    get:
+      consumes:
+      - application/json
+      description: Dashboard info
+      operationId: dashboard-get
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPDataSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Dashboard
+      tags:
+      - Dashboard
+  /api/v1/farm/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a farm
+      operationId: farm-delete
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Delete Farm
+      tags:
+      - Farm
+    get:
+      consumes:
+      - application/json
+      description: Get farm by ID
+      operationId: farm-get
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPDataSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Get farm
+      tags:
+      - Farm
+  /api/v1/farm/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new farm
+      operationId: farm-create
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateFarmDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: New Farm
+      tags:
+      - Farm
+  /api/v1/farm/update:
+    put:
+      consumes:
+      - application/json
+      description: Update a farm
+      operationId: farm-update
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateFarmDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Update Farm
+      tags:
+      - Farm
+  /api/v1/warehouse/create/stock:
+    post:
+      consumes:
+      - application/json
+      description: Create a new stock
+      operationId: stock-create
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateStockDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: New stock
+      tags:
+      - Warehouse
+  /api/v1/warehouse/supply/feed:
+    post:
+      consumes:
+      - application/json
+      description: Update a feed
+      operationId: feed-update
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.SupplyStockDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Add feed
+      tags:
+      - Warehouse
+  /api/v1/warehouse/supply/medicine:
+    post:
+      consumes:
+      - application/json
+      description: Update a medicine
+      operationId: medicine-update
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.SupplyStockDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: Add medicine
+      tags:
+      - Warehouse
+  /auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Get access token
+      operationId: sign-in
+      parameters:
+      - description: Credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.SignInDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Token'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: User sign-in
+      tags:
+      - Auth
+  /auth/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      operationId: sign-up
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateUserDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: User sign-up
+      tags:
+      - Auth
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
