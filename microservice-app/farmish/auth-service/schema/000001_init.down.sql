@@ -1,0 +1,9 @@
+DELETE TABLE users;
+DELETE TABLE animals;
+DELETE TABLE farms;
+DELETE TABLE feed_arrival;
+DELETE TABLE medicine_arrival;
+DELETE TABLE medicine_arrival;
+DELETE TABLE feeding_record;
+DELETE TABLE treatments;
+DELETE TABLE warehouse;
