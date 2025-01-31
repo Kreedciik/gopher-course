@@ -7,13 +7,14 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
 func (h *Handler) ProxyHandler(ctx *gin.Context) {
 	urlPath := ctx.Request.URL.Path
 	requestMethod := ctx.Request.Method
-	authBackendURL := "http://localhost:8081"
-	farmBackendURL := "http://localhost:8082"
+	authBackendURL := viper.GetString("services.auth")
+	farmBackendURL := viper.GetString("services.farm")
 	backendURL := ""
 
 	switch {
