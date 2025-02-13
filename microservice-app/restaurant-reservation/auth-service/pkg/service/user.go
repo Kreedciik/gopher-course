@@ -4,29 +4,30 @@ import (
 	"auth/model"
 	helper "auth/pkg/helpers"
 	"auth/pkg/repository"
+	"context"
 	"fmt"
 	"log/slog"
 	"time"
 )
 
 type User interface {
-	SignUp(model.CreateUserDTO) error
-	SignIn(model.SignInDTO) (string, error)
-	GetUserByEmail(string) (model.User, error)
-	GetUserProfile(string) (model.User, error)
+	SignUp(context.Context, model.CreateUserDTO) error
+	Login(context.Context, model.SignInDTO) (string, error)
+	//GetUserByEmail(string) (model.User, error)
+	//GetUserProfile(string) (model.User, error)
 }
 
 type UserService struct {
 	repository *repository.UserRepository
 }
 
-func NewUserService(repository *repository.UserRepository) *UserService {
+func NewUserService(repository *repository.UserRepository) User {
 	return &UserService{
 		repository,
 	}
 }
 
-func (u *UserService) SignUp(newUser model.CreateUserDTO) error {
+func (u *UserService) SignUp(ctx context.Context, newUser model.CreateUserDTO) error {
 	user, _ := u.GetUserByEmail(newUser.Email)
 	if user.Email == newUser.Email {
 		slog.Error("sign-up: email already exist")
@@ -37,10 +38,10 @@ func (u *UserService) SignUp(newUser model.CreateUserDTO) error {
 		slog.Error("sign-up: could not hash password")
 	}
 	newUser.Password = hashed
-	return u.repository.InsertUser(newUser)
+	return u.repository.InsertUser(ctx, newUser)
 }
 
-func (u *UserService) SignIn(credentials model.SignInDTO) (string, error) {
+func (u *UserService) Login(ctx context.Context, credentials model.SignInDTO) (string, error) {
 	foundedUser, err := u.GetUserByEmail(credentials.Email)
 	if err != nil {
 		slog.Error(fmt.Sprintf("sign-in: %s", err.Error()))

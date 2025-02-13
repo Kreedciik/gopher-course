@@ -2,6 +2,7 @@ package repository
 
 import (
 	"auth/model"
+	"context"
 	"database/sql"
 
 	"github.com/google/uuid"
@@ -20,8 +21,8 @@ func NewUserRepository(db *sql.DB) *UserRepository {
 	return &UserRepository{db}
 }
 
-func (u *UserRepository) InsertUser(newUser model.CreateUserDTO) error {
-	_, err := u.db.Exec(`
+func (u *UserRepository) InsertUser(ctx context.Context, newUser model.CreateUserDTO) error {
+	_, err := u.db.ExecContext(ctx, `
 	INSERT INTO users VALUES ($1, $2, $3)
 	`,
 		uuid.NewString(),
@@ -32,9 +33,9 @@ func (u *UserRepository) InsertUser(newUser model.CreateUserDTO) error {
 	return err
 }
 
-func (u *UserRepository) FindUserByEmail(email string) (model.User, error) {
+func (u *UserRepository) FindUserByEmail(ctx context.Context, email string) (model.User, error) {
 	var user model.User
-	row := u.db.QueryRow(`SELECT id, email, password, user_name FROM users`)
+	row := u.db.QueryRowContext(ctx, `SELECT id, email, password, user_name FROM users`)
 	err := row.Scan(&user.Id,
 		&user.Email,
 		&user.Password,

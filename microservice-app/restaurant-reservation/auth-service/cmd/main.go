@@ -1,14 +1,16 @@
 package main
 
 import (
-	"auth/app"
 	"auth/config"
-	"auth/pkg/handler"
+	"auth/pkg/controller"
 	"auth/pkg/repository"
 	"auth/pkg/repository/postgres"
 	"auth/pkg/service"
 	"fmt"
+	"google.golang.org/grpc"
+	"log"
 	"log/slog"
+	"net"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -42,14 +44,17 @@ func main() {
 	}
 	repositories := repository.NewRepository(postgresDB)
 	services := service.NewService(repositories)
-	h := handler.NewHandler(services)
+	contr := controller.NewHandler(services)
 
-	routes := h.InitRoutes()
-
-	server := new(app.Server)
-	err = server.Run(viper.GetString("server.port"), routes)
-
+	l, err := net.Listen("tcp", ":8545") // Standard Ethereum JSON-RPC port
 	if err != nil {
-		slog.Error(fmt.Sprintf("error when initialize server: %s", err.Error()))
+		log.Fatal("listen error:", err)
+	}
+	defer l.Close()
+	server := grpc.NewServer()
+	contr.InitServers(server)
+
+	if err := server.Serve(l); err != nil {
+		log.Fatalf("failed to serve: %v", err)
 	}
 }

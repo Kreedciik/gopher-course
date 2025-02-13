@@ -1,21 +1,23 @@
 package app
 
 import (
-	"net/http"
-	"time"
+	"auth/pkg/controller"
+	"google.golang.org/grpc"
+	"log"
+	"log/slog"
+	"net"
 )
 
 type Server struct {
-	httpServer *http.Server
+	RPC *controller.AuthController
 }
 
-func (s *Server) Run(port string, handler http.Handler) error {
-	s.httpServer = &http.Server{
-		Addr:           port,
-		Handler:        handler,
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   10 * time.Second,
-		MaxHeaderBytes: 1 << 20,
+func (s *Server) Run() error {
+
+	log.Printf("server listening at %v", l.Addr())
+	if err := server.Serve(l); err != nil {
+		log.Fatalf("failed to serve: %v", err)
 	}
-	return s.httpServer.ListenAndServe()
+
+	return nil
 }
