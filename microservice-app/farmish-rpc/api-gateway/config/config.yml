@@ -1,0 +1,5 @@
+server:
+  port: :8000
+rpc:
+  auth: localhost:8081
+  farm: localhost:8082

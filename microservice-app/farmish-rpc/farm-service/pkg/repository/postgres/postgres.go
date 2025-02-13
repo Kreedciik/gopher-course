@@ -7,7 +7,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type Config struct {
+type PostgresConfig struct {
 	Host     string
 	Port     string
 	User     string
@@ -16,21 +16,15 @@ type Config struct {
 	SSLMode  string
 }
 
-func NewPostgres(cfg Config) (*sql.DB, error) {
+func NewPostgres(cfg PostgresConfig) (*sql.DB, error) {
 	connection := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		cfg.Host, cfg.Port, cfg.User,
 		cfg.Password, cfg.Dbname,
 		cfg.SSLMode)
-
 	db, err := sql.Open("postgres", connection)
 	if err != nil {
-		return nil, err
+		return db, err
 	}
-
 	err = db.Ping()
-	if err != nil {
-		return nil, err
-	}
-
 	return db, err
 }

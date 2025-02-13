@@ -1,0 +1,103 @@
+basePath: /api
+definitions:
+  model.CreateUserDTO:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  model.HTTPError:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  model.HTTPSuccess:
+    properties:
+      message:
+        type: string
+    type: object
+  model.SignInDTO:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  model.Token:
+    properties:
+      accessToken:
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact: {}
+  description: This is a sample server caller server.
+  title: Auth service API
+  version: "1.0"
+paths:
+  /auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Get access token
+      operationId: sign-in
+      parameters:
+      - description: Credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.SignInDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Token'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: User sign-in
+      tags:
+      - Auth
+  /auth/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      operationId: sign-up
+      parameters:
+      - description: Body
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateUserDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.HTTPError'
+      summary: User sign-up
+      tags:
+      - Auth
+swagger: "2.0"

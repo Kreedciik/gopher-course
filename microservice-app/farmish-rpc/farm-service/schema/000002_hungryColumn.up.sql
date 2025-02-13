@@ -1,0 +1,2 @@
+ALTER TABLE animals 
+ADD COLUMN is_hungry BOOLEAN NOT NULL DEFAULT false;
