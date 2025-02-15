@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	helper "auth/pkg/helpers"
-	"auth/pkg/response"
 	"net/http"
+	helper "reservation/pkg/helpers"
+	"reservation/pkg/response"
 	"strings"
 
 	"github.com/gin-gonic/gin"

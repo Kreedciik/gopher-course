@@ -1,36 +1,29 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"time"
 )
 
+type Person struct {
+	Name  string `json:"name"`
+	Age   int    `json:"age"`
+	Email string `json:"email"`
+}
+
 func main() {
-	ch1 := make(chan string)
-	ch2 := make(chan string)
-
-	go func() {
-		for {
-			time.Sleep(time.Millisecond * 500)
-			ch1 <- "Half a second passed"
-		}
-	}()
-
-	go func() {
-		for {
-			time.Sleep(time.Second * 2)
-			ch2 <- "2 seconds passed"
-		}
-	}()
-
-	for {
-		fmt.Println(<-ch1)
-		fmt.Println(<-ch2)
-		// select {
-		// case msg := <-ch1:
-		// 	fmt.Println(msg)
-		// case msg := <-ch2:
-		// 	fmt.Println(msg)
-		// }
+	person := Person{
+		Name:  "Alice",
+		Age:   30,
+		Email: "alice@example.com",
 	}
+
+	// Convert Go struct to JSON
+	jsonData, err := json.Marshal(person)
+	if err != nil {
+		fmt.Println("Error marshalling JSON:", err)
+		return
+	}
+
+	fmt.Println(string(jsonData))
 }

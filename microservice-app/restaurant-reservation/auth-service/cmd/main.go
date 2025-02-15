@@ -3,7 +3,7 @@ package main
 import (
 	"auth/app"
 	"auth/config"
-	"auth/pkg/handler"
+	"auth/pkg/controller"
 	"auth/pkg/repository"
 	"auth/pkg/repository/postgres"
 	"auth/pkg/service"
@@ -42,14 +42,18 @@ func main() {
 	}
 	repositories := repository.NewRepository(postgresDB)
 	services := service.NewService(repositories)
-	h := handler.NewHandler(services)
-
-	routes := h.InitRoutes()
-
-	server := new(app.Server)
-	err = server.Run(viper.GetString("server.port"), routes)
-
+	h := controller.NewHandler(services)
+	grpcServer, err := app.NewGRPC(viper.GetString("server.port"))
+	slog.Info("grpc-auth-service: server initialized")
 	if err != nil {
 		slog.Error(fmt.Sprintf("error when initialize server: %s", err.Error()))
 	}
+	defer grpcServer.Listener.Close()
+	err = grpcServer.RunGRPC()
+	if err != nil {
+		slog.Error(fmt.Sprintf("error when running grpc server: %s", err.Error()))
+	}
+	h.InitServers(grpcServer.Server)
+	fmt.Println(true)
+
 }

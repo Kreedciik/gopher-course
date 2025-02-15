@@ -26,7 +26,7 @@ func (u *UserRepository) InsertUser(newUser model.CreateUserDTO) error {
 	`,
 		uuid.NewString(),
 		newUser.Email,
-		newUser.UserName,
+		newUser.Name,
 		newUser.Password,
 	)
 	return err
@@ -34,21 +34,21 @@ func (u *UserRepository) InsertUser(newUser model.CreateUserDTO) error {
 
 func (u *UserRepository) FindUserByEmail(email string) (model.User, error) {
 	var user model.User
-	row := u.db.QueryRow(`SELECT id, email, password, user_name FROM users`)
+	row := u.db.QueryRow(`SELECT id, email, password, name FROM users`)
 	err := row.Scan(&user.Id,
 		&user.Email,
 		&user.Password,
-		&user.Username,
+		&user.Name,
 	)
 	return user, err
 }
 
 func (u *UserRepository) FindUserById(id string) (model.User, error) {
 	var user model.User
-	row := u.db.QueryRow(`SELECT id, user_name, email FROM users`)
+	row := u.db.QueryRow(`SELECT id, name, email FROM users`)
 	err := row.Scan(
 		&user.Id,
-		&user.Username,
+		&user.Name,
 		&user.Email,
 	)
 	return user, err

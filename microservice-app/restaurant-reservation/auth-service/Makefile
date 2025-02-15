@@ -28,6 +28,3 @@ run:
 
 tidy:
 	go mod tidy
-
-swag:
-	swag init -g pkg/handler/handler.go

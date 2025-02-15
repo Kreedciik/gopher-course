@@ -1,9 +1,10 @@
 package handler
 
 import (
-	"auth/model"
-	"auth/pkg/response"
 	"net/http"
+	pb "reservation/grpc_gen/auth"
+	"reservation/model"
+	"reservation/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,7 +29,13 @@ func (h *Handler) SignUp(ctx *gin.Context) {
 		return
 	}
 
-	if err := h.services.SignUp(newUser); err != nil {
+	_, err := h.authClient.SignUp(ctx, &pb.SignUpRequest{
+		Name:     newUser.Name,
+		Email:    newUser.Email,
+		Password: newUser.Password,
+	})
+
+	if err != nil {
 		response.NewErrorResponse(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -56,14 +63,18 @@ func (h *Handler) SignIn(ctx *gin.Context) {
 		return
 	}
 
-	accessToken, err := h.services.SignIn(credentials)
+	r, err := h.authClient.SignIn(ctx, &pb.SignInRequest{
+		Email:    credentials.Email,
+		Password: credentials.Password,
+	})
+
 	if err != nil {
 		response.NewErrorResponse(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	response.NewSuccessResponseWithData(ctx, model.Token{
-		AccessToken: accessToken,
+		AccessToken: r.GetToken(),
 	})
 
 }

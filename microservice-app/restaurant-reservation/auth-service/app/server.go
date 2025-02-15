@@ -1,21 +1,29 @@
 package app
 
 import (
-	"net/http"
-	"time"
+	"net"
+
+	"google.golang.org/grpc"
 )
 
-type Server struct {
-	httpServer *http.Server
+type GRPCServer struct {
+	Server   *grpc.Server
+	Listener net.Listener
 }
 
-func (s *Server) Run(port string, handler http.Handler) error {
-	s.httpServer = &http.Server{
-		Addr:           port,
-		Handler:        handler,
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   10 * time.Second,
-		MaxHeaderBytes: 1 << 20,
+func NewGRPC(port string) (*GRPCServer, error) {
+	grpcServer := grpc.NewServer()
+	l, err := net.Listen("tcp", port)
+	if err != nil {
+		return nil, err
 	}
-	return s.httpServer.ListenAndServe()
+
+	return &GRPCServer{
+		Server:   grpcServer,
+		Listener: l,
+	}, nil
+}
+
+func (s *GRPCServer) RunGRPC() error {
+	return s.Server.Serve(s.Listener)
 }

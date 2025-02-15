@@ -1,10 +1,12 @@
 package handler
 
 import (
-	"auth/pkg/response"
 	"fmt"
 	"log/slog"
 	"net/http"
+	pb "reservation/grpc_gen/auth"
+	"reservation/model"
+	"reservation/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,11 +20,17 @@ func (h *Handler) GetProfile(ctx *gin.Context) {
 		return
 	}
 	userId := val.(string)
-	user, err := h.services.User.GetUserProfile(userId)
+	user, err := h.authClient.GetProfile(ctx, &pb.GetProfileRequest{
+		Id: userId,
+	})
 	if err != nil {
 		response.NewErrorResponse(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	response.NewSuccessResponseWithData(ctx, user)
+	response.NewSuccessResponseWithData(ctx, model.User{
+		Id:    user.GetId(),
+		Name:  user.GetName(),
+		Email: user.GetEmail(),
+	})
 }
