@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package telemedicine;
+
+option go_package = "/pbtelemedicine";
+
+service TelemedicineService {
+  rpc Consult(stream ConsultationMessage) returns (stream ConsultationMessage);
+}
+
+message ConsultationMessage {
+  string username = 1;
+  string message = 2;
+  string timestamp = 3;
+}

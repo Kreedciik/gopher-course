@@ -49,11 +49,10 @@ func main() {
 		slog.Error(fmt.Sprintf("error when initialize server: %s", err.Error()))
 	}
 	defer grpcServer.Listener.Close()
+	h.InitServers(grpcServer.Server)
 	err = grpcServer.RunGRPC()
 	if err != nil {
 		slog.Error(fmt.Sprintf("error when running grpc server: %s", err.Error()))
 	}
-	h.InitServers(grpcServer.Server)
-	fmt.Println(true)
 
 }

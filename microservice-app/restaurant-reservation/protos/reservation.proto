@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+option go_package = "/reservation";
+
+package reservation;
+
+service ReservationService {
+    rpc CreateRestaurant(CreateRestaurantReq) returns (CreateRestaurantRes);
+    rpc UpdateRestaurant(UpdateRestaurantReq) returns (UpdateRestaurantRes);
+    rpc RemoveRestaurant(RemoveRestaurantReq) returns (RemoveRestaurantRes);
+    rpc GetAllRestaurants(GetRestaurantsReq) returns (GetRestaurantsRes);
+    rpc GetRestaurantById(GetRestaurantReq) returns (GetRestaurantRes);
+
+    rpc CreateReservation(CreateReservationReq) returns (CreateReservationRes);
+    rpc UpdateReservation(UpdateReservationReq) returns (UpdateReservationRes);
+    rpc RemoveReservation(RemoveReservationReq) returns (RemoveReservationRes);
+    rpc GetAllReservations(GetReservationsReq) returns (GetReservationsRes);
+    rpc GetReservationById(GetReservationReq) returns (GetReservationRes);
+}
+
+service MenuService {}
+
+message Restaurant {
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string phoneNumber = 4;
+    string description = 5;
+}
+message CreateRestaurantReq {
+    string name = 1;
+    string address = 2;
+    string phoneNumber = 3;
+    string description = 4;
+}
+message CreateRestaurantRes {
+    bool success = 1;
+}
+
+message UpdateRestaurantReq {
+    string name = 1;
+    string address = 2;
+    string phoneNumber = 3;
+    string description = 4;
+    string id = 5;
+}
+message UpdateRestaurantRes {
+    bool success = 1;
+}
+
+message RemoveRestaurantReq {
+    string id = 1;
+}
+message RemoveRestaurantRes {
+    bool success = 1;
+}
+
+message GetRestaurantsReq {}
+message GetRestaurantsRes {
+    repeated Restaurant restaurants = 1;
+    bool success = 2;
+}
+
+message GetRestaurantReq {
+    string id = 1;
+}
+message GetRestaurantRes {
+    Restaurant restaurant = 1;
+    bool success = 2;
+}
+
+message CreateReservationReq{}
+message CreateReservationRes{}
+
+message UpdateReservationReq{}
+message UpdateReservationRes{}
+
+message RemoveReservationReq{}
+message RemoveReservationRes{}
+
+message GetReservationsReq{}
+message GetReservationsRes{}
+
+message GetReservationReq{}
+message GetReservationRes{}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package health;
+
+option go_package = "/healthpb";
+
+service HealthService {
+  rpc GetPatientVitals(PatientRequest) returns (stream PatientVitalsResponse);
+}
+
+message PatientRequest {
+  string patientId = 1;
+}
+message PatientVitalsResponse {
+  int32 heartRate = 1;
+  int32 oxygenLevel = 4;
+  string timestamp = 5;
+  string patientName = 6;
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package heart;
+
+option go_package = "/heartpb";
+
+service HealthService {
+  rpc MonitorHeartRate(stream HeartRateRequest) returns (HeartRateResponse);
+}
+
+message HeartRateRequest {
+  int64 heartRate = 1;
+}
+message HeartRateResponse {
+  float averageHeartRate = 1;
+  string timestamp = 2;
+}
